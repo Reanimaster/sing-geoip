@@ -1,0 +1,258 @@
+{
+  "dns": {
+    "rules": [
+      {
+        "action": "route",
+        "domain": [
+          "vpn1.tezey.pro",
+          "vpn2.tezey.pro",
+          "vpn3.tezey.pro",
+          "vpn4.tezey.pro"
+        ],
+        "server": "dns-direct"
+      }
+    ],
+    "servers": [
+      {
+        "address": "https://dns.adguard-dns.com/dns-query",
+        "address_resolver": "dns-direct",
+        "detour": "main",
+        "strategy": "ipv4_only",
+        "tag": "adguard-https"
+      },
+      {
+        "address": "https://dns.quad9.net/dns-query",
+        "address_resolver": "dns-direct",
+        "detour": "main",
+        "strategy": "ipv4_only",
+        "tag": "quad9-https"
+      },
+      {
+        "address": "9.9.9.9",
+        "detour": "direct",
+        "strategy": "ipv4_only",
+        "tag": "dns-direct"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "address": [
+        "173.19.0.1/30"
+      ],
+      "mtu": 9000,
+      "auto_route": true,
+      "domain_strategy": "ipv4_only",
+      "endpoint_independent_nat": true,
+      "sniff": true,
+      "sniff_override_destination": false,
+      "strict_route": false
+    }
+  ],
+  "log": {
+    "level": "debug",
+    "disabled": false
+  },
+  "outbounds": [
+    {
+      "domain_strategy": "",
+      "flow": "",
+      "server": "vpn1.tezey.pro",
+      "server_port": 443,
+      "tag": "main",
+      "tls": {
+        "enabled": true,
+        "reality": {
+          "enabled": true,
+          "public_key": "7AvQEh-jrzGtgXdEqlOxqCigJ49NrVrzCbK14pARi2A",
+          "short_id": "e4636c15b787ffe3"
+        },
+        "server_name": "vpn2.tezey.pro",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "random"
+        }
+      },
+      "type": "vless",
+      "uuid": "e7a99672-0069-4f00-931a-0edb18c5b473"
+    },
+    {
+      "domain_strategy": "",
+      "flow": "xtls-rprx-vision",
+      "server": "vpn3.tezey.pro",
+      "server_port": 443,
+      "tag": "slave",
+      "tls": {
+        "enabled": true,
+        "reality": {
+          "enabled": true,
+          "public_key": "3clyepmIzAFobeO546wG6k6MJSrW8I-dm7mbaiZB1w4",
+          "short_id": "03c4785fd8f7f1fa"
+        },
+        "server_name": "vpn4.tezey.pro",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "random"
+        }
+      },
+      "type": "vless",
+      "uuid": "ae407e2e-34aa-44a6-8313-7013555ad79c"
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    }
+  ],
+  "route": {
+    "rule_set": [
+      {
+        "tag": "adguard",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geosite-adguard.srs",
+        "download_detour": "main"
+      },
+      {
+        "tag": "category-ads",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geosite-category-ads-all.srs",
+        "download_detour": "main"
+      },
+      {
+        "tag": "ozon",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geosite-ozon.srs",
+        "download_detour": "main"
+      },
+      {
+        "tag": "vk",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geosite-vk.srs",
+        "download_detour": "main"
+      },
+      {
+        "tag": "xbox",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geosite-xbox.srs",
+        "download_detour": "main"
+      },
+      {
+        "tag": "yandex",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geosite-yandex.srs",
+        "download_detour": "main"
+      },
+      {
+        "tag": "rkn-dpi-puny",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geosite-rkn_puny_dpi.srs",
+        "download_detour": "main"
+      },
+      {
+        "tag": "rkn-dpi",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geosite-rkn_ru_dpi.srs",
+        "download_detour": "main"
+      },
+      {
+        "tag": "rkn-puny",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geosite-rkn_puny.srs",
+        "download_detour": "main"
+      },
+      {
+        "tag": "rkn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geoip-rkn_ru.srs",
+        "download_detour": "main"
+      },
+      {
+        "tag": "youtube",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geosite-youtube.srs",
+        "download_detour": "main"
+      },
+      {
+        "tag": "geoip-ru",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geoip-ru.srs",
+        "download_detour": "main"
+      },
+      {
+        "tag": "banks",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geosite-banks.srs",
+        "download_detour": "main"
+      },
+      {
+        "tag": "gov",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/Reanimaster/sing-geosite/refs/heads/main/geosite-gov.srs",
+        "download_detour": "main"
+      }
+    ],
+    "rules": [
+      {
+        "action": "sniff",
+        "inbound": [
+          "tun-in"
+        ]
+      },
+      {
+        "action": "reject",
+        "method": "drop",
+        "rule_set": ["adguard", "category-ads"]
+      },
+      {
+        "action": "hijack-dns",
+        "protocol": "dns"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      },
+      {
+        "rule_set": "youtube",
+        "outbound": "slave"
+      },
+      {
+        "rule_set": ["ozon", "vk", "xbox", "yandex", "geoip-ru", "banks", "gov"],
+        "outbound": "direct"
+      },
+      {
+        "rule_set": ["rkn-dpi-puny", "rkn-dpi", "rkn-puny"],
+        "outbound": "main"
+      },
+      {
+        "domain": [],
+        "domain_keyword": [],
+        "domain_regex": [],
+        "domain_suffix": ["xsts.auth.xboxlive.com"],
+        "outbound": "direct"
+      }
+    ],
+    "final": "main",
+    "find_process": false,
+    "auto_detect_interface": true,
+    "override_android_vpn": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true
+    }
+  }
+}
